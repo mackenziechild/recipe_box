@@ -11,9 +11,14 @@
 		.container
 			.navbar-brand= link_to "Recipe Box", root_path
 
-			%ul.nav.navbar-nav.navbar-right
-				%li= link_to "New Recipe", new_recipe_path
-				%li= link_to "Sign Out", root_path
+			- if user_signed_in?
+				%ul.nav.navbar-nav.navbar-right
+					%li= link_to "New Recipe", new_recipe_path
+					%li= link_to "Sign Out", destroy_user_session_path, method: :delete
+			- else
+				%ul.nav.navbar-nav.navbar-right
+					%li= link_to "Sign Up", new_user_registration_path
+					%li= link_to "Sign In", new_user_session_path
 
 	.container
 		- flash.each do |name, msg|
